@@ -21,6 +21,9 @@ cd "$WORKDIR/omtplayer"
 echo "[3/8] Compilando..."
 bash scripts/build.sh
 
+echo "[X/X] Parando player se estiver rodando..."
+systemctl stop omtplayer.service 2>/dev/null || true
+
 echo "[4/8] Instalando arquivos..."
 sudo mkdir -p "$INSTALL_DIR"
 sudo cp build/omtplayer "$INSTALL_DIR/"
