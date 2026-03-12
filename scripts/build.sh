@@ -12,4 +12,4 @@ clang++ -O3 -std=c++17 \
   -L"$ROOT_DIR/lib" -lomt \
   -lSDL2 \
   -o build/omtplayer \
-  -Wl,-rpath,'$ORIGIN/../lib'
+  -Wl,-rpath,'$ORIGIN'
