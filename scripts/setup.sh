@@ -15,15 +15,16 @@ echo
 
 echo "[1/5] Procurando sources OMT na rede..."
 mapfile -t SOURCES < <(
-  avahi-browse -prt _omt._tcp 2>/dev/null | awk -F';' '
-    /^=/ {
-      name=$7
-      addr=$9
-      port=$10
-      if (name != "") {
-        print name " | " addr ":" port
-      }
-    }' | sort -u
+  avahi-browse -rt _omt._tcp 2>/dev/null \
+    | awk '
+      /^=/ {
+        line=$0
+        sub(/^= +[^ ]+ +[^ ]+ +/, "", line)
+        sub(/ +_omt\._tcp.*$/, "", line)
+        gsub(/[[:space:]]+$/, "", line)
+        if (line != "") print line
+      }' \
+    | sort -u
 )
 
 if [ "${#SOURCES[@]}" -eq 0 ]; then
@@ -153,8 +154,22 @@ if [[ "$START_NOW" =~ ^[sS]$ ]]; then
 else
   systemctl stop omtplayer.service >/dev/null 2>&1 || true
   echo "Player nao iniciado."
+  echo
+  echo "Para iniciar manualmente depois, use:"
+  echo "  sudo systemctl start omtplayer.service"
 fi
 
 echo
-echo "Concluido."
-echo "Para alterar depois, rode: sudo omtplayer-setup"
+echo "======================================"
+echo "Configuracao concluida."
+echo
+echo "Comandos uteis:"
+echo "  sudo systemctl start omtplayer.service"
+echo "  sudo systemctl stop omtplayer.service"
+echo "  sudo systemctl restart omtplayer.service"
+echo "  systemctl status omtplayer.service"
+echo "  journalctl -u omtplayer.service -f"
+echo
+echo "Para alterar a configuracao depois:"
+echo "  sudo omtplayer-setup"
+echo "======================================"
