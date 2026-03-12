@@ -5,10 +5,7 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-Environment=DISPLAY=:0
-Environment=SDL_AUDIODRIVER=alsa
-Environment=AUDIODEV=hw:0,3
-ExecStart=/opt/omtplayer/omtplayer "NOTE-LUCIANO (vMix - Output 1)"
+ExecStart=/opt/omtplayer/run.sh
 Restart=always
 RestartSec=2
 
