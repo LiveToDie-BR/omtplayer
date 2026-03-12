@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-REPO_URL="${REPO_URL:-https://github.com/SEU_USUARIO/omtplayer.git}"
+REPO_URL="${REPO_URL:-https://github.com/LiveToDie-BR/omtplayer.git}"
 INSTALL_DIR="/opt/omtplayer"
 BIN_LINK="/usr/local/bin/omtplayer"
 
